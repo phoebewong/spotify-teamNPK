@@ -1,4 +1,5 @@
 raw_data/*
+data/*
 .DS_Store
 __pycache__/
 *.py[cod]
