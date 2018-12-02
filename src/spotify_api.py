@@ -5,6 +5,7 @@ client_credentials_manager = SpotifyClientCredentials(client_id='fc03c036ef2e455
                                                       client_secret='3f2bc1d385394fdebbfbca47a9b07268')
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
+#spotify playlist info demo 
 playlists = sp.user_playlists('spotify')
 while playlists:
     for i, playlist in enumerate(playlists['items']):
@@ -13,3 +14,9 @@ while playlists:
         playlists = sp.next(playlists)
     else:
         playlists = None
+
+#spotify audio features demo
+        
+list_uri = #list of track uri
+
+playlists = sp.audio_features(list_uri)
