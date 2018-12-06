@@ -16,7 +16,7 @@ while playlists:
         playlists = None
 
 #spotify audio features demo
-        
+
 list_uri = #list of track uri
 
 playlists = sp.audio_features(list_uri)
