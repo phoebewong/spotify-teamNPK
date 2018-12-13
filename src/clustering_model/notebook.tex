@@ -1,0 +1,1409 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{clustering\_model\_demo}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{\# KMeans Clustering Prediction
+Model}\label{kmeans-clustering-prediction-model}
+
+    \subsection{0. Motivation}\label{motivation}
+
+    \href{https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1}{KMeans
+clustering} has been one of the most popular unsupervised machine
+learning models for exploring latent trends in datasets. We explored
+this approach with the assumption that clustering would shed light on
+underlying patterns of tracks regarding 1) how they are similar (either
+within, or outside of the scheme of genres), and 2) how they are grouped
+together into playlists by users. Specifically, we explored this
+centroid-base algorithm on audio features. In short, the clustering
+process groups tracks by minimizing their differences by audio features,
+with respect to the number of centroids defined.
+
+    \subsection{1. Strategy}\label{strategy}
+
+    \subsubsection{1.1 Evaluation and
+Prediction}\label{evaluation-and-prediction}
+
+    For consistency and comparative purpose of the current project, we
+defined evaluation and prediction for models before the models were
+built. Regardless of the size of dataset at the stage of exploration, we
+train-test split our dataset so that 20\% of each playlist were put
+aside as the test set. Within training, 20\% of each playlist were put
+aside for validation. For clustering prediction, the test set was only
+used in final step after model tuning. Our models were evaluted using
+R-Precision, Normalized Discounted Cumulative Gain (NDCG).
+
+    \subsubsection{1.2 KMeans Clustering}\label{kmeans-clustering}
+
+    Tracks were clustered based on the following audio features:
+acousticness, danceability, energy, instrumentalness, key, liveness,
+loudness, speechiness, tempo, time signature and valence. Audio features
+were retrieved from the
+\href{https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-audio-features/}{Spotify
+API}. All features were standardized before clustering to control for
+range of variances.
+
+The number of clusters used was suggested by distortion curves. In
+particular, we defined distortion as the sum of within-cluster squared
+distances. The image below demonstrates the distortion curve for
+clustering on 100 playlist subset. In general, we failed to observe an
+elbow turn of distortion curves in the current project. We approached
+our clustering model with k = 8. \includegraphics{optimalk_demo.png}
+
+We recorded all cluster labels assigned to each track. In addition,
+centroids were ordered based on their distances to one another.
+Within-cluster occurance was computed for both artist and track upon
+clustering, the resulting prediction data frame served as the basis of
+our prediction model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}example of prediction data frame}
+         \PY{n}{example} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}    Playlistid  Trackid                             Track\_uri  \textbackslash{}
+         0      256979       18  spotify:track:0qOnSQQF0yzuPWsXrQ9paz   
+         1       38828       10  spotify:track:0qOnSQQF0yzuPWsXrQ9paz   
+         2      208779        7  spotify:track:77ZdAoTHYoF6Umo76HFD4m   
+         3      117841       20  spotify:track:5zGqTc1WQUe8XqqdnrpKTV   
+         4       61388       36  spotify:track:1D9XLqQp2YYiOxrr5KLb8K   
+         
+                 Artist\_Name                                         Track\_Name  \textbackslash{}
+         0  Gym Class Heroes  Stereo Hearts (feat. Adam Levine) - feat. Adam{\ldots}   
+         1  Gym Class Heroes  Stereo Hearts (feat. Adam Levine) - feat. Adam{\ldots}   
+         2  Gym Class Heroes                    The Fighter - feat. Ryan Tedder   
+         3     Rodney Atkins                                  Farmer's Daughter   
+         4             Drake                                 Under Ground Kings   
+         
+                                                artist\_genres  artist\_popularity  \textbackslash{}
+         0        ['dance pop', 'emo', 'pop punk', 'pop rap']               64.0   
+         1        ['dance pop', 'emo', 'pop punk', 'pop rap']               64.0   
+         2        ['dance pop', 'emo', 'pop punk', 'pop rap']               64.0   
+         3  ['contemporary country', 'country', 'country r{\ldots}               66.0   
+         4  ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         
+            cluster\_label  mode\_artist  mode\_track  
+         0              2            3           2  
+         1              2            3           2  
+         2              2            3           1  
+         3              2            1           1  
+         4              3            7           1  
+\end{Verbatim}
+            
+    \subsubsection{1.3 Prediction Model}\label{prediction-model}
+
+    Our final prediction model was constructed in two steps. The original
+model was built and evaluated on the validation set, upon which we
+investigated the clustering data frames and predictions. We "tuned" our
+updated model (the final model) by adding an extra prediction step.
+
+    \paragraph{1.3.1 Original Model}\label{original-model}
+
+    The original model was based on the assumption that tracks assigned to a
+cluster would be similar to each other, and that the distances between
+clusters capture similarities between clusters, or groups of tracks.
+
+For each unique playlist id acquired from the validation set, we
+subsetted the existing data on the playlist from the prediction data
+frame. Cluster labels for the subset was counted for occurance, ordered
+descendingly, and returned as a list. We populated the list based on
+pre-ordered between-centroid distances; the idea is to generate
+predictions from the most-likely to least-likely clusters. For each
+cluster, we generated predictions based on, first, the most popular
+artist, and second, the most popular track within the cluster.
+Prediction terminates when we have 15 times the actual number of tracks
+existing in the validation set.
+
+Below is a demonstration of prediction using the original model. The
+source code could be accessed at our
+\href{https://github.com/phoebewong/spotify-teamNPK/tree/master/src}{GitHub
+repository}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{}demo for playlist number 20043}
+         \PY{n}{example} \PY{o}{=} \PY{n}{prediction\PYZus{}cluster}\PY{p}{[}\PY{n}{prediction\PYZus{}cluster}\PY{o}{.}\PY{n}{Playlistid} \PY{o}{==} \PY{l+m+mi}{20043}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}Prediction data frame trained on training set}
+         \PY{n}{example}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:}       Playlistid  Trackid                             Track\_uri  \textbackslash{}
+         23         20043       20  spotify:track:1vvnYpYEMVB4aq9I6tHIEB   
+         134        20043        0  spotify:track:6F609ICg9Spjrw1epsAnpa   
+         138        20043        3  spotify:track:6bqtKURdSWkInAJHDkuaL0   
+         144        20043        2  spotify:track:7jslhIiELQkgW9IHeYNOWE   
+         159        20043        8  spotify:track:124NFj84ppZ5pAxTuVQYCQ   
+         238        20043        1  spotify:track:11KJSRSgaDxqydKYiD2Jew   
+         245        20043        7  spotify:track:6LxSe8YmdPxy095Ux6znaQ   
+         282        20043       59  spotify:track:7GX5flRQZVHRAGd6B4TmDO   
+         321        20043       31  spotify:track:7kqcudBGM74MXVoYMaoWkC   
+         323        20043       34  spotify:track:3wrP2GVxWH8VpHPOsKhYgz   
+         326        20043       30  spotify:track:0k6DnZMLoEUH8NGD5zh2SE   
+         337        20043       47  spotify:track:7xmCwWVmWBawnIzRUdg3Nr   
+         340        20043       37  spotify:track:1Ser4X0TKttOvo8bgdytTP   
+         421        20043       24  spotify:track:6JG0qhINKVwiHxqN85j7RG   
+         423        20043       22  spotify:track:4Tjh34RS4ACZ6f6srlDBg8   
+         431        20043       46  spotify:track:4HnPZXkx15Y5hfBWh9vtQL   
+         558        20043       13  spotify:track:4w7yrP4RAeeyhfG9nJqQvS   
+         586        20043       33  spotify:track:5u7o3wXWJI7AN1b9KIf3m8   
+         617        20043       35  spotify:track:4scpF6J5uMBvoh6sFB7EL1   
+         658        20043       53  spotify:track:59dLtGBS26x7kc0rHbaPrq   
+         662        20043       54  spotify:track:2bnDTGikdoO8CwzlAPyBHR   
+         680        20043       41  spotify:track:3pXF1nA74528Edde4of9CC   
+         684        20043       42  spotify:track:16bHRxM89ue0TiCKARYbRp   
+         774        20043       66  spotify:track:1KYD72wtZ4o6wZkxZ0MSPg   
+         852        20043       18  spotify:track:2EEeOnHehOozLq4aS0n6SL   
+         892        20043       45  spotify:track:78qRSpkPt9y1DtRp2uB9yO   
+         893        20043       49  spotify:track:4wckW1OjAM2z6elKQdqUpi   
+         894        20043       44  spotify:track:3Uw0h4GVLVjoUEToSWe0gY   
+         911        20043       43  spotify:track:1Bqxj0aH5KewYHKUg1IdrF   
+         913        20043       50  spotify:track:26jrY21NkSefFPxpndtu4z   
+         914        20043       51  spotify:track:7xq3uN2toVZ8IbNzfTucyJ   
+         1022       20043       65  spotify:track:2771LMNxwf62FTAdpJMQfM   
+         1307       20043       57  spotify:track:2c8sgbZoEanC3QyFNZxUcA   
+         1361       20043       12  spotify:track:4E92bmgFiHxvy2SNjXjC3b   
+         1363       20043       16  spotify:track:2bCLwbMQHgvcDC6zGUzQZP   
+         1402       20043       25  spotify:track:6qwGBEapykrbAHTYlYwONN   
+         1557       20043       63  spotify:track:5uQOauh47VFt3B2kV9kRXw   
+         1652       20043       56  spotify:track:2ye824NM1m7Nc2UPXtwZjL   
+         1663       20043       64  spotify:track:14RRHdmfjGPhuWBhkl4Ne4   
+         1767       20043       27  spotify:track:4ejtrks9KfRe7keI7FRIPc   
+         1816       20043       29  spotify:track:22DKsoYFV5npPXmnPpXL7i   
+         1834       20043       36  spotify:track:4jTiyLlOJVJj3mCr7yfPQD   
+         1890       20043       40  spotify:track:1Kqp9djNwTIhCsMOeRxrYu   
+         
+                          Artist\_Name  \textbackslash{}
+         23                   J. Cole   
+         134                    Drake   
+         138                    Drake   
+         144                    Drake   
+         159                    Drake   
+         238                    Drake   
+         245                    Drake   
+         282             Lil Uzi Vert   
+         321              Chris Brown   
+         323              Chris Brown   
+         326              Chris Brown   
+         337                   G-Eazy   
+         340             Rae Sremmurd   
+         421                  J. Cole   
+         423                  J. Cole   
+         431                   G-Eazy   
+         558                 Big Sean   
+         586              Chris Brown   
+         617             Rae Sremmurd   
+         658                    B.o.B   
+         662                    B.o.B   
+         680            Bryson Tiller   
+         684            Bryson Tiller   
+         774                     KYLE   
+         852                     KYLE   
+         892                   G-Eazy   
+         893                   G-Eazy   
+         894                   G-Eazy   
+         911                   G-Eazy   
+         913                   G-Eazy   
+         914                   G-Eazy   
+         1022                 Cardi B   
+         1307                   Logic   
+         1361                Big Sean   
+         1363                Big Sean   
+         1402                 J. Cole   
+         1557  A Boogie Wit da Hoodie   
+         1652                  Eminem   
+         1663  A Boogie Wit da Hoodie   
+         1767             Nicki Minaj   
+         1816                2 Chainz   
+         1834            Rae Sremmurd   
+         1890                   JAY Z   
+         
+                                                      Track\_Name  \textbackslash{}
+         23                                     4 Your Eyez Only   
+         134                                           Controlla   
+         138                                        I'm The Plug   
+         144                                           Big Rings   
+         159                                           Take Care   
+         238                                            Too Good   
+         245                                           Headlines   
+         282                                       XO TOUR Llif3   
+         321                                               Loyal   
+         323                                                Zero   
+         326                                                 Ayo   
+         337                  Marilyn (feat. Dominique Le Jeune)   
+         340                                        Come Get Her   
+         421                                       Crooked Smile   
+         423                                          Fire Squad   
+         431                   Lady Killers (feat. Hoodie Allen)   
+         558                               I Don't Fuck With You   
+         586                                              Liquor   
+         617                                             No Type   
+         658                   Nothin' On You (feat. Bruno Mars)   
+         662   Airplanes, Part II (feat Eminem \& Hayley Willi{\ldots}   
+         680                                               Don't   
+         684                                     Sorry Not Sorry   
+         774                                       Really? Yeah!   
+         852                             iSpy (feat. Lil Yachty)   
+         892                                          Lotta That   
+         893                                         One Of Them   
+         894                                       Almost Famous   
+         911                                   Some Kind Of Drug   
+         913                                       Of All Things   
+         914                                           Calm Down   
+         1022                                       Bodak Yellow   
+         1307                                        Flexicution   
+         1361                                          Blessings   
+         1363                                           Research   
+         1402                                         Cole World   
+         1557                                            My Shit   
+         1652                                      When I'm Gone   
+         1663                                             Ransom   
+         1767                                        Buy A Heart   
+         1816                                          Watch Out   
+         1834                                   This Could Be Us   
+         1890                                        99 Problems   
+         
+                                                   artist\_genres  artist\_popularity  \textbackslash{}
+         23    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         134   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         138   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         144   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         159   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         238   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         245   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         282                        ['pop', 'rap', 'trap music']               86.0   
+         321       ['dance pop', 'pop', 'pop rap', 'r\&b', 'rap']               86.0   
+         323       ['dance pop', 'pop', 'pop rap', 'r\&b', 'rap']               86.0   
+         326       ['dance pop', 'pop', 'pop rap', 'r\&b', 'rap']               86.0   
+         337   ['hip hop', 'indie pop rap', 'pop', 'pop rap',{\ldots}               84.0   
+         340   ['hip hop', 'pop', 'pop rap', 'rap', 'southern{\ldots}               81.0   
+         421   ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         423   ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         431   ['hip hop', 'indie pop rap', 'pop', 'pop rap',{\ldots}               83.0   
+         558   ['detroit hip hop', 'hip hop', 'pop', 'pop rap{\ldots}               83.0   
+         586       ['dance pop', 'pop', 'pop rap', 'r\&b', 'rap']               86.0   
+         617   ['hip hop', 'pop', 'pop rap', 'rap', 'southern{\ldots}               81.0   
+         658   ['dance pop', 'hip hop', 'pop', 'pop rap', 'ra{\ldots}               73.0   
+         662   ['dance pop', 'hip hop', 'pop', 'pop rap', 'ra{\ldots}               73.0   
+         680   ['hip hop', 'indie r\&b', 'pop', 'pop rap', 'r\&{\ldots}               76.0   
+         684   ['hip hop', 'indie r\&b', 'pop', 'pop rap', 'r\&{\ldots}               76.0   
+         774                ['hip hop', 'pop', 'pop rap', 'rap']               76.0   
+         852                ['hip hop', 'pop', 'pop rap', 'rap']               76.0   
+         892   ['hip hop', 'indie pop rap', 'pop', 'pop rap',{\ldots}               84.0   
+         893   ['hip hop', 'indie pop rap', 'pop', 'pop rap',{\ldots}               84.0   
+         894   ['hip hop', 'indie pop rap', 'pop', 'pop rap',{\ldots}               84.0   
+         911   ['hip hop', 'indie pop rap', 'pop', 'pop rap',{\ldots}               83.0   
+         913   ['hip hop', 'indie pop rap', 'pop', 'pop rap',{\ldots}               84.0   
+         914   ['hip hop', 'indie pop rap', 'pop', 'pop rap',{\ldots}               84.0   
+         1022                                     ['pop', 'rap']               91.0   
+         1307  ['conscious hip hop', 'hip hop', 'pop rap', 'r{\ldots}               84.0   
+         1361  ['detroit hip hop', 'hip hop', 'pop', 'pop rap{\ldots}               83.0   
+         1363  ['detroit hip hop', 'hip hop', 'pop', 'pop rap{\ldots}               83.0   
+         1402  ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         1557  ['hip hop', 'pop', 'rap', 'southern hip hop', {\ldots}               78.0   
+         1652    ['detroit hip hop', 'g funk', 'hip hop', 'rap']               88.0   
+         1663  ['hip hop', 'pop', 'rap', 'southern hip hop', {\ldots}               78.0   
+         1767  ['dance pop', 'hip pop', 'pop', 'pop rap', 'rap']               90.0   
+         1816  ['hip hop', 'pop', 'pop rap', 'rap', 'southern{\ldots}               84.0   
+         1834  ['hip hop', 'pop', 'pop rap', 'rap', 'southern{\ldots}               81.0   
+         1890  ['bulgarian hip hop', 'east coast hip hop', 'g{\ldots}               80.0   
+         
+               cluster\_label  mode\_artist  mode\_track  
+         23                7           11           1  
+         134               7           51           2  
+         138               7           51           2  
+         144               7           51           3  
+         159               7           51           3  
+         238               4           34           3  
+         245               4           34           5  
+         282               7            5           5  
+         321               2           11           1  
+         323               2           11           1  
+         326               2           11           2  
+         337               5            1           1  
+         340               3            4           4  
+         421               1            5           2  
+         423               1            5           2  
+         431               3            1           1  
+         558               2            3           3  
+         586               4            3           1  
+         617               4            9           3  
+         658               2            6           3  
+         662               2            6           1  
+         680               4            5           2  
+         684               4            5           1  
+         774               4            2           2  
+         852               7            3           3  
+         892               4            8           1  
+         893               4            8           1  
+         894               4            8           1  
+         911               7            4           2  
+         913               7            4           1  
+         914               7            4           1  
+         1022              4            1           1  
+         1307              2            2           2  
+         1361              7            4           2  
+         1363              7            4           1  
+         1402              3            3           2  
+         1557              2            2           2  
+         1652              7            1           1  
+         1663              3            1           1  
+         1767              4            1           1  
+         1816              7            1           1  
+         1834              2            3           3  
+         1890              7            1           1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{}predict for demo}
+         \PY{n}{pred\PYZus{}example} \PY{o}{=} \PY{n}{predict\PYZus{}cluster}\PY{o}{.}\PY{n}{cPredict}\PY{p}{(}\PY{n}{prediction\PYZus{}cluster}\PY{p}{,} \PY{l+m+mi}{20043}\PY{p}{,} \PY{n}{orderRankc}\PY{p}{,} \PY{n}{val}\PY{p}{[}\PY{n}{val}\PY{o}{.}\PY{n}{Playlistid} \PY{o}{==} \PY{l+m+mi}{20043}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}visualize tracks predicted for the example data set}
+         \PY{n}{dfpred\PYZus{}example} \PY{o}{=} \PY{n}{prediction\PYZus{}cluster}\PY{p}{[}\PY{n}{prediction\PYZus{}cluster}\PY{o}{.}\PY{n}{Track\PYZus{}uri}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{pred\PYZus{}example}\PY{p}{)}\PY{p}{]}
+         \PY{n}{dfpred\PYZus{}example}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:}       Playlistid  Trackid                             Track\_uri  \textbackslash{}
+         18         46047        0  spotify:track:62vpWI1CHwFy7tMIcSStl8   
+         19        153929       65  spotify:track:62vpWI1CHwFy7tMIcSStl8   
+         20         22204       14  spotify:track:62vpWI1CHwFy7tMIcSStl8   
+         21        190503        7  spotify:track:62vpWI1CHwFy7tMIcSStl8   
+         22        219212       10  spotify:track:3FWR4iiUUPHIK7OpiEgh8J   
+         24        219212        3  spotify:track:16qYlQ6koFxYVbiJbGHblz   
+         25        193450       19  spotify:track:16qYlQ6koFxYVbiJbGHblz   
+         26        208692       34  spotify:track:6I6NX6tjGsxFAsIfGzY9lJ   
+         27        190503       13  spotify:track:7lL3MvFWFFSD25pBz72Agj   
+         28        219212        2  spotify:track:6Ius4TC0L3cN74HT7ENE6e   
+         42        231023       12  spotify:track:2AgnbuzvnfPvq1sAYNB4pj   
+         43        231023        7  spotify:track:0jx8zY5JQsS4YEQcfkoc5C   
+         53        249966       49  spotify:track:4FHu9bOzBjZurx89CMa42L   
+         54        219212       16  spotify:track:4FHu9bOzBjZurx89CMa42L   
+         55         58121       21  spotify:track:3U8Ev1gISsx6O1uwpsttOD   
+         56        231023       29  spotify:track:5XJJdNPkwmbUwE79gv0NxK   
+         57        237553       14  spotify:track:5XJJdNPkwmbUwE79gv0NxK   
+         58        237553       32  spotify:track:4qikXelSRKvoCqFcHLB2H2   
+         59        249966        8  spotify:track:39cpcnobaB8FdedVjHjXP2   
+         60        249966       32  spotify:track:3pJ0avSP15CvCwgNcTfZJo   
+         61        230183       24  spotify:track:722tgOgdIbNe3BEyLnejw4   
+         123       221044       29  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         124        22204       13  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         125       208692       63  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         126       201186       14  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         127       153929        6  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         128        61388       31  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         129        58121        5  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         130        61388       33  spotify:track:5lFDtgWsjRJu8fPOAyJIAK   
+         131       193450       21  spotify:track:5lFDtgWsjRJu8fPOAyJIAK   
+         {\ldots}          {\ldots}      {\ldots}                                   {\ldots}   
+         1605      241546       16  spotify:track:4P7VFiaZb3xrXoqGwZXC3J   
+         1606       58121       15  spotify:track:4iQLJCvthLGQDXFYkfAXbG   
+         1607      231023       26  spotify:track:6ScJMrlpiLfZUGtWp4QIVt   
+         1627      221044       12  spotify:track:46MFlm7p0Vqd0eXmLtDlN4   
+         1628       61388       21  spotify:track:46MFlm7p0Vqd0eXmLtDlN4   
+         1629      223534        0  spotify:track:6mZcNu9i8uhOYMiEAyEx81   
+         1637        6238       24  spotify:track:3TfKt8mPpdXfQTMfRjHzyz   
+         1638        6238        7  spotify:track:3nJYcY9yvKP8Oi2Ml8brXt   
+         1640      118342       20  spotify:track:5l3CML2OnzfNs5RfVgbcLt   
+         1659       61388       52  spotify:track:24BSTATmWEmrPOgEM17bfN   
+         1660      232421        2  spotify:track:5DFqjT6TxAE5BdKb8YcPmZ   
+         1687      256979       27  spotify:track:6HePVKyIeL20JWLVthsU9c   
+         1688      241546       15  spotify:track:2WNVqZq1ujhMDlOAqBFkVv   
+         1709        1990       24  spotify:track:3vLwhsaHXbb2UHa8xSq63y   
+         1768      249966       39  spotify:track:52IuMfbQa9aqRPz2oYPAI8   
+         1791      223534        7  spotify:track:7wBThXx7BGZHJJ3aN3OPvv   
+         1812      223534       12  spotify:track:4nthV2eZAXnt4yiJMocLkG   
+         1813       51590        6  spotify:track:6EnUOnOEBb6Nw6JpKdgZkZ   
+         1815       90187        8  spotify:track:3vJG33adGD5Z39Gb6Cnevi   
+         1841      195247        8  spotify:track:1px4PgELXjVzJgBjwPvTiG   
+         1859       92360       29  spotify:track:4SRqDmPxYX0pUb5B5ut2Ri   
+         1864      208692       60  spotify:track:07sOl7WsmCaUqaJaRn9Dss   
+         1872      168982        3  spotify:track:6lbFEBQz8jYuwsDY1LYEuD   
+         1887      120354       14  spotify:track:2LvRR121MWFmmEGkuV2vQP   
+         1895      114695        3  spotify:track:5JedBhwRzsHLodF17y6lor   
+         1900       90187       20  spotify:track:3jagJCUbdqhDSPuxP8cAqF   
+         1911       61388        0  spotify:track:5TqBAOIBe0bQA0spNdcG3k   
+         1921      196206        6  spotify:track:7LRMbd3LEoV5wZJvXT1Lwb   
+         1961       58121        2  spotify:track:4u4YzpWVKSz01MlTPTERkf   
+         1967        6238       26  spotify:track:3s9itRgJYcKhem01P17865   
+         
+                        Artist\_Name                                         Track\_Name  \textbackslash{}
+         18                 J. Cole                                     No Role Modelz   
+         19                 J. Cole                                     No Role Modelz   
+         20                 J. Cole                                     No Role Modelz   
+         21                 J. Cole                                     No Role Modelz   
+         22                 J. Cole                                          Lost Ones   
+         24                 J. Cole                                           G.O.M.D.   
+         25                 J. Cole                                           G.O.M.D.   
+         26                 J. Cole                                            Deja Vu   
+         27                 J. Cole                                 A Tale of 2 Citiez   
+         28                 J. Cole                                         Wet Dreamz   
+         42       Chance The Rapper  Finish Line / Drown (feat. T-Pain, Kirk Frankl{\ldots}   
+         43       Chance The Rapper                                Angels (feat. Saba)   
+         53              Kanye West                                     All Falls Down   
+         54              Kanye West                                     All Falls Down   
+         55              Kanye West                                            Mercy.1   
+         56              Kanye West                                        Gold Digger   
+         57              Kanye West                                        Gold Digger   
+         58              Kanye West                                              Mercy   
+         59              Kanye West                                          The Glory   
+         60              Kanye West                             Breathe In Breathe Out   
+         61              Kanye West                                     Black Skinhead   
+         123                  Drake                                            Jumpman   
+         124                  Drake                                            Jumpman   
+         125                  Drake                                            Jumpman   
+         126                  Drake                                            Jumpman   
+         127                  Drake                                            Jumpman   
+         128                  Drake                                            Jumpman   
+         129                  Drake                                            Jumpman   
+         130                  Drake                                       Back To Back   
+         131                  Drake                                       Back To Back   
+         {\ldots}                    {\ldots}                                                {\ldots}   
+         1605             Lil Wayne                                           Lollipop   
+         1606             Lil Wayne                                            Gunwalk   
+         1607             Lil Wayne                                            A Milli   
+         1627              The Game                                  100 (feat. Drake)   
+         1628              The Game                                  100 (feat. Drake)   
+         1629              The Game                                          How We Do   
+         1637   Christopher Jackson                                  Cabinet Battle \#1   
+         1638   Christopher Jackson                                     Right Hand Man   
+         1640          Jason Derulo                        Talk Dirty (feat. 2 Chainz)   
+         1659        French Montana                                        No Shopping   
+         1660           Adam Jacobs                                     One Jump Ahead   
+         1687   The Black Eyed Peas                              Just Can’t Get Enough   
+         1688   The Black Eyed Peas                                           My Humps   
+         1709         Azealia Banks                                                212   
+         1768                N.W.A.                                   Express Yourself   
+         1791                 Usher  Confessions Part II - Confessions Special Edit{\ldots}   
+         1812                 Nelly                                            Dilemma   
+         1813         DJ Luke Nasty                                           Might Be   
+         1815              Lou Bega                   Mambo No. 5 (A Little Bit of{\ldots})   
+         1841               Sublime                                     Caress Me Down   
+         1859                 Ne-Yo                                            So Sick   
+         1864       Rich Homie Quan                                        Type of Way   
+         1872             Mura Masa                       What If I Go? (feat. Bonzai)   
+         1887                 B.o.B                          HeadBand (feat. 2 Chainz)   
+         1895     Chedda Da Connect                                    Flicka Da Wrist   
+         1900         Missy Elliott                                            Work It   
+         1911             DJ Khaled                                           For Free   
+         1921                 AC/DC                                             T.N.T.   
+         1961         King Kendrick                                         Ooh Killem   
+         1967  Jasmine Cephas-Jones                                     Say No To This   
+         
+                                                   artist\_genres  artist\_popularity  \textbackslash{}
+         18    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         19    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         20    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         21    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         22    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         24    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         25    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         26    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         27    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         28    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         42    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         43    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         53                                   ['pop rap', 'rap']               89.0   
+         54                                   ['pop rap', 'rap']               89.0   
+         55                                   ['pop rap', 'rap']               89.0   
+         56                                   ['pop rap', 'rap']               89.0   
+         57                                   ['pop rap', 'rap']               89.0   
+         58                                   ['pop rap', 'rap']               89.0   
+         59                                   ['pop rap', 'rap']               89.0   
+         60                                   ['pop rap', 'rap']               89.0   
+         61                                   ['pop rap', 'rap']               89.0   
+         123   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         124   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         125   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         126   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         127   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         128   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         129   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         130   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         131   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         {\ldots}                                                 {\ldots}                {\ldots}   
+         1605  ['hip hop', 'pop', 'pop rap', 'rap', 'trap mus{\ldots}               85.0   
+         1606  ['hip hop', 'pop', 'pop rap', 'rap', 'trap mus{\ldots}               85.0   
+         1607  ['hip hop', 'pop', 'pop rap', 'rap', 'trap mus{\ldots}               85.0   
+         1627  ['dirty south rap', 'gangster rap', 'hip hop',{\ldots}               71.0   
+         1628  ['dirty south rap', 'gangster rap', 'hip hop',{\ldots}               71.0   
+         1629  ['dirty south rap', 'gangster rap', 'hip hop',{\ldots}               71.0   
+         1637                                      ['hollywood']               64.0   
+         1638                                     ['show tunes']               74.0   
+         1640  ['dance pop', 'pinoy hip hop', 'pop', 'pop rap{\ldots}               82.0   
+         1659  ['hip hop', 'pop', 'pop rap', 'rap', 'southern{\ldots}               81.0   
+         1660  ['broadway', 'hollywood', 'movie tunes', 'show{\ldots}               47.0   
+         1687                    ['dance pop', 'pop', 'pop rap']               74.0   
+         1688                    ['dance pop', 'pop', 'pop rap']               74.0   
+         1709  ['art pop', 'bmore', 'dance pop', 'escape room{\ldots}               60.0   
+         1768  ['conscious hip hop', 'gangster rap', 'hardcor{\ldots}               65.0   
+         1791  ['dance pop', 'pop', 'pop rap', 'r\&b', 'urban {\ldots}               78.0   
+         1812  ['dance pop', 'hip hop', 'pop', 'pop rap', 'r\&{\ldots}               73.0   
+         1813                                     ['trap music']               47.0   
+         1815                                      ['latin pop']               61.0   
+         1841                                       ['ska punk']               71.0   
+         1859  ['dance pop', 'pop', 'pop rap', 'r\&b', 'urban {\ldots}               77.0   
+         1864  ['deep trap', 'dwn trap', 'gangster rap', 'pop{\ldots}               70.0   
+         1872                                     ['vapor soul']               67.0   
+         1887  ['dance pop', 'hip hop', 'pop', 'pop rap', 'ra{\ldots}               73.0   
+         1895                                     ['trap music']               37.0   
+         1900  ['dance pop', 'hip hop', 'hip pop', 'pop', 'po{\ldots}               71.0   
+         1911  ['dance pop', 'hip hop', 'pop', 'pop rap', 'r\&{\ldots}               82.0   
+         1921  ['album rock', 'australian rock', 'hard rock',{\ldots}               79.0   
+         1961                                                 []               35.0   
+         1967                                                 []               55.0   
+         
+               cluster\_label  mode\_artist  mode\_track  
+         18                7           11           4  
+         19                7           11           4  
+         20                7           11           4  
+         21                7           11           4  
+         22                7           11           1  
+         24                7           11           2  
+         25                7           11           2  
+         26                7           11           1  
+         27                7           11           1  
+         28                7           11           1  
+         42                7            2           1  
+         43                7            2           1  
+         53                7            9           2  
+         54                7            9           2  
+         55                7            9           1  
+         56                7            9           2  
+         57                7            9           2  
+         58                7            9           1  
+         59                7            9           1  
+         60                7            9           1  
+         61                7            9           1  
+         123               7           51           7  
+         124               7           51           7  
+         125               7           51           7  
+         126               7           51           7  
+         127               7           51           7  
+         128               7           51           7  
+         129               7           51           7  
+         130               7           51           4  
+         131               7           51           4  
+         {\ldots}             {\ldots}          {\ldots}         {\ldots}  
+         1605              7            5           2  
+         1606              7            5           1  
+         1607              7            5           1  
+         1627              7            3           2  
+         1628              7            3           2  
+         1629              7            3           1  
+         1637              7            2           1  
+         1638              7            2           1  
+         1640              7            1           1  
+         1659              7            1           1  
+         1660              7            1           1  
+         1687              7            2           1  
+         1688              7            2           1  
+         1709              7            1           1  
+         1768              7            1           1  
+         1791              7            1           1  
+         1812              7            1           1  
+         1813              7            1           1  
+         1815              7            1           1  
+         1841              7            1           1  
+         1859              7            1           1  
+         1864              7            1           1  
+         1872              7            1           1  
+         1887              7            1           1  
+         1895              7            1           1  
+         1900              7            1           1  
+         1911              7            1           1  
+         1921              7            1           1  
+         1961              7            1           1  
+         1967              7            1           1  
+         
+         [218 rows x 10 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{}true validation set for demo}
+         \PY{n}{true\PYZus{}example} \PY{o}{=} \PY{n}{val}\PY{p}{[}\PY{n}{val}\PY{o}{.}\PY{n}{Playlistid} \PY{o}{==} \PY{l+m+mi}{20043}\PY{p}{]}
+         \PY{n}{true\PYZus{}example}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:}      Playlistid  Trackid             Artist\_Name  \textbackslash{}
+         428       20043       61           Bryson Tiller   
+         429       20043       62  A Boogie Wit da Hoodie   
+         377       20043       10                   Drake   
+         393       20043       26             Nicki Minaj   
+         395       20043       28             Nicki Minaj   
+         425       20043       58                DeJ Loaf   
+         378       20043       11                Big Sean   
+         405       20043       38                 Kid Ink   
+         388       20043       21                 J. Cole   
+         372       20043        5                   Drake   
+         419       20043       52                   B.o.B   
+         
+                                         Track\_uri  \textbackslash{}
+         428  spotify:track:3Jrs7cC2OJNlNSy9VnDOMZ   
+         429  spotify:track:1f5cbQtDrykjarZVrShaDI   
+         377  spotify:track:4Kz4RdRCceaA9VgTqBhBfa   
+         393  spotify:track:73DydXpS6xXmsFNvYrSpIQ   
+         395  spotify:track:7gKIt3rDGIMJDFVSPBnGmj   
+         425  spotify:track:2CY92qejUrhyPUASawNVRr   
+         378  spotify:track:0SGkqnVQo9KPytSri1H6cF   
+         405  spotify:track:32tBNiuuQtkUG5eBWpC0oQ   
+         388  spotify:track:6Ius4TC0L3cN74HT7ENE6e   
+         372  spotify:track:2durxb17bXcmQJHSt8JAdO   
+         419  spotify:track:6lV2MSQmRIkycDScNtrBXO   
+         
+                                                     Track\_Name  \textbackslash{}
+         428                                  Somethin Tells Me   
+         429                       Drowning (feat. Kodak Black)   
+         377                                          The Motto   
+         393                                           Favorite   
+         395                                         Super Bass   
+         425                                             Try Me   
+         378                                        Bounce Back   
+         405                                            Be Real   
+         388                                         Wet Dreamz   
+         372                                         No Tellin'   
+         419  Airplanes (feat. Hayley Williams of Paramore) {\ldots}   
+         
+                                               Album\_Name  Track\_Duration  \textbackslash{}
+         428                                 True to Self          194266   
+         429                            The Bigger Artist          209269   
+         377                                    Take Care          181573   
+         393                                The Pinkprint          242946   
+         395                                  Pink Friday          200013   
+         425                                       Try Me          217573   
+         378                                   I Decided.          222360   
+         405                                   Full Speed          206760   
+         388                      2014 Forest Hills Drive          239320   
+         372         If You're Reading This It's Too Late          310933   
+         419  B.o.B Presents: The Adventures of Bobby Ray          180480   
+         
+              acousticness                                      artist\_genres  \textbackslash{}
+         428      0.035600  ['hip hop', 'indie r\&b', 'pop', 'pop rap', 'r\&{\ldots}   
+         429      0.501000  ['hip hop', 'pop', 'rap', 'southern hip hop', {\ldots}   
+         377      0.000107  ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}   
+         393      0.613000  ['dance pop', 'hip pop', 'pop', 'pop rap', 'rap']   
+         395      0.290000  ['dance pop', 'hip pop', 'pop', 'pop rap', 'rap']   
+         425      0.007100  ['deep pop r\&b', 'detroit hip hop', 'pop', 'po{\ldots}   
+         378      0.105000  ['detroit hip hop', 'hip hop', 'pop', 'pop rap{\ldots}   
+         405      0.122000  ['dance pop', 'hip hop', 'pop', 'pop rap', 'r\&{\ldots}   
+         388      0.075200  ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}   
+         372      0.535000  ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}   
+         419      0.110000  ['dance pop', 'hip hop', 'pop', 'pop rap', 'ra{\ldots}   
+         
+              artist\_popularity   {\ldots}     explicit  instrumentalness   key  liveness  \textbackslash{}
+         428               76.0   {\ldots}         True          0.000000   5.0    0.1070   
+         429               78.0   {\ldots}         True          0.000000   5.0    0.1170   
+         377              100.0   {\ldots}         True          0.000061   1.0    0.1110   
+         393               90.0   {\ldots}         True          0.000057   4.0    0.0911   
+         395               90.0   {\ldots}         True          0.000003  11.0    0.5030   
+         425               65.0   {\ldots}         True          0.000008   0.0    0.2410   
+         378               83.0   {\ldots}         True          0.000000   2.0    0.1250   
+         405               73.0   {\ldots}         True          0.000315   9.0    0.1410   
+         388               84.0   {\ldots}         True          0.000000   6.0    0.1280   
+         372              100.0   {\ldots}         True          0.000000   7.0    0.1360   
+         419               73.0   {\ldots}         True          0.000000   6.0    0.0368   
+         
+              loudness  mode  speechiness    tempo  time\_signature  valence  
+         428    -7.197   0.0       0.2260   90.002             4.0   0.4340  
+         429    -5.274   0.0       0.0568  129.014             4.0   0.8140  
+         377    -8.558   1.0       0.3560  201.800             4.0   0.3900  
+         393    -7.172   0.0       0.0408  103.038             4.0   0.0635  
+         395    -4.302   1.0       0.1960  127.033             4.0   0.6390  
+         425    -8.029   0.0       0.0872  170.044             4.0   0.2470  
+         378    -5.698   1.0       0.1750   81.477             4.0   0.2600  
+         405    -5.462   0.0       0.0876   99.934             4.0   0.3860  
+         388    -8.205   0.0       0.3640  175.483             4.0   0.5840  
+         372   -10.408   0.0       0.2750   95.030             4.0   0.5580  
+         419    -4.285   0.0       0.1160   93.033             4.0   0.3770  
+         
+         [11 rows x 22 columns]
+\end{Verbatim}
+            
+    The takeaway from the original is that clustering of audio features does
+not necessarily capture the genres of tracks. Whereas our demonstration
+shows that clustering generates similar songs that the actual validation
+set holds, for playlists that are more diverse, this is not necessarily
+the same. To account for this deficiency of the original model, we added
+a step to prioritize track prediction based on artists.
+
+    \paragraph{1.3.2 Final Model}\label{final-model}
+
+    To improve our model performance, we prioritized prediction based on
+artist occurance in a playlist before using the clustering results.
+Before we start filling out the prediction list based on cluster
+similarities, we ranked artists based on their occurance in the training
+data for each individual playlist. Specifically, we predicted songs for
+artists that appeared 3 times or more, with the most popular ones first.
+If the prediction list is not then filled, we moved onto the original
+clustering prediction procedure. This model was directedly tested on
+test sets for final report. However, for demonstration purpose, we
+output the prediction on validation set below, with respect to the same
+example dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{c+c1}{\PYZsh{}predict for demo using updated model}
+         \PY{n}{pred\PYZus{}example\PYZus{}updated} \PY{o}{=} \PY{n}{predict\PYZus{}cluster\PYZus{}updated}\PY{o}{.}\PY{n}{cPredict}\PY{p}{(}\PY{n}{prediction\PYZus{}cluster}\PY{p}{,} \PY{l+m+mi}{20043}\PY{p}{,} \PY{n}{orderRankc}\PY{p}{,} \PY{n}{val}\PY{p}{)}
+         \PY{n}{dfpred\PYZus{}example\PYZus{}updated} \PY{o}{=} \PY{n}{prediction\PYZus{}cluster}\PY{p}{[}\PY{n}{prediction\PYZus{}cluster}\PY{o}{.}\PY{n}{Track\PYZus{}uri}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{pred\PYZus{}example\PYZus{}updated}\PY{p}{)}\PY{p}{]}
+         \PY{n}{dfpred\PYZus{}example\PYZus{}updated}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:}       Playlistid  Trackid                             Track\_uri  \textbackslash{}
+         4          61388       36  spotify:track:1D9XLqQp2YYiOxrr5KLb8K   
+         5         153929       33  spotify:track:31Q9ZTF9x81BDonlObCbvP   
+         6         153929       43  spotify:track:75L0qdzRnhwV62UXoNq3pE   
+         7         230183        8  spotify:track:75L0qdzRnhwV62UXoNq3pE   
+         8         155081        6  spotify:track:6cT5orvyKqwghJp6KB9vG0   
+         9         190503        9  spotify:track:0V4l4GQhgnWQGtCWpvA7va   
+         10        153929       63  spotify:track:3fyMH1t6UPeR5croea9PrR   
+         18         46047        0  spotify:track:62vpWI1CHwFy7tMIcSStl8   
+         19        153929       65  spotify:track:62vpWI1CHwFy7tMIcSStl8   
+         20         22204       14  spotify:track:62vpWI1CHwFy7tMIcSStl8   
+         21        190503        7  spotify:track:62vpWI1CHwFy7tMIcSStl8   
+         22        219212       10  spotify:track:3FWR4iiUUPHIK7OpiEgh8J   
+         24        219212        3  spotify:track:16qYlQ6koFxYVbiJbGHblz   
+         25        193450       19  spotify:track:16qYlQ6koFxYVbiJbGHblz   
+         26        208692       34  spotify:track:6I6NX6tjGsxFAsIfGzY9lJ   
+         27        190503       13  spotify:track:7lL3MvFWFFSD25pBz72Agj   
+         28        219212        2  spotify:track:6Ius4TC0L3cN74HT7ENE6e   
+         42        231023       12  spotify:track:2AgnbuzvnfPvq1sAYNB4pj   
+         43        231023        7  spotify:track:0jx8zY5JQsS4YEQcfkoc5C   
+         53        249966       49  spotify:track:4FHu9bOzBjZurx89CMa42L   
+         54        219212       16  spotify:track:4FHu9bOzBjZurx89CMa42L   
+         55         58121       21  spotify:track:3U8Ev1gISsx6O1uwpsttOD   
+         56        231023       29  spotify:track:5XJJdNPkwmbUwE79gv0NxK   
+         57        237553       14  spotify:track:5XJJdNPkwmbUwE79gv0NxK   
+         58        237553       32  spotify:track:4qikXelSRKvoCqFcHLB2H2   
+         59        249966        8  spotify:track:39cpcnobaB8FdedVjHjXP2   
+         60        249966       32  spotify:track:3pJ0avSP15CvCwgNcTfZJo   
+         61        230183       24  spotify:track:722tgOgdIbNe3BEyLnejw4   
+         123       221044       29  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         124        22204       13  spotify:track:27GmP9AWRs744SzKcpJsTZ   
+         {\ldots}          {\ldots}      {\ldots}                                   {\ldots}   
+         1380      153929       62  spotify:track:7KOlJ92bu51cltsD9KU5I7   
+         1404      219212        9  spotify:track:4fFZW98VLhdZSlyC07wt6v   
+         1419      231023       37  spotify:track:1e1JKLEDKP7hEQzJfNAgPl   
+         1420      208692       48  spotify:track:1e1JKLEDKP7hEQzJfNAgPl   
+         1450       61388       76  spotify:track:7y6c07pgjZvtHI9kuMVqk1   
+         1511        6238       15  spotify:track:6p7jXaTJdpzGWnOJoK2jYr   
+         1512        6238       34  spotify:track:1DLfR4MOfLYbV6v3xrmWa8   
+         1513        6238       46  spotify:track:0mqcxeYg1b57YjniPNTtQ6   
+         1539      120354       24  spotify:track:6i759FCuKx713ZnYjtpQGU   
+         1540      120354        9  spotify:track:37F0uwRSrdzkBiuj0D5UHI   
+         1554      208692       44  spotify:track:0x335qdLBS6o30hYdc8h2I   
+         1555      230183       18  spotify:track:1uqLxPxVgM50Dzoe6l3L00   
+         1603       58121       17  spotify:track:3Eq7yD58dIXqOgw1j7NFhY   
+         1604      230183        3  spotify:track:4P7VFiaZb3xrXoqGwZXC3J   
+         1605      241546       16  spotify:track:4P7VFiaZb3xrXoqGwZXC3J   
+         1606       58121       15  spotify:track:4iQLJCvthLGQDXFYkfAXbG   
+         1607      231023       26  spotify:track:6ScJMrlpiLfZUGtWp4QIVt   
+         1627      221044       12  spotify:track:46MFlm7p0Vqd0eXmLtDlN4   
+         1628       61388       21  spotify:track:46MFlm7p0Vqd0eXmLtDlN4   
+         1629      223534        0  spotify:track:6mZcNu9i8uhOYMiEAyEx81   
+         1637        6238       24  spotify:track:3TfKt8mPpdXfQTMfRjHzyz   
+         1638        6238        7  spotify:track:3nJYcY9yvKP8Oi2Ml8brXt   
+         1687      256979       27  spotify:track:6HePVKyIeL20JWLVthsU9c   
+         1688      241546       15  spotify:track:2WNVqZq1ujhMDlOAqBFkVv   
+         1693      120354       32  spotify:track:0SGkqnVQo9KPytSri1H6cF   
+         1736      190503        8  spotify:track:1HNs07uZxZniPNmniw2GTa   
+         1737      153929       12  spotify:track:1HNs07uZxZniPNmniw2GTa   
+         1738      219212        4  spotify:track:1HNs07uZxZniPNmniw2GTa   
+         1917      219212        5  spotify:track:4gkl7QbQvBd3TM9PhlWFkI   
+         1937       81542       15  spotify:track:1hDYcjBSsAShpTSekSyyzC   
+         
+                       Artist\_Name                                         Track\_Name  \textbackslash{}
+         4                   Drake                                 Under Ground Kings   
+         5                   Drake                                            Forever   
+         6                   Drake                                       Up All Night   
+         7                   Drake                                       Up All Night   
+         8                   Drake                                     Furthest Thing   
+         9                   Drake                                          Crew Love   
+         10                  Drake                                    Best I Ever Had   
+         18                J. Cole                                     No Role Modelz   
+         19                J. Cole                                     No Role Modelz   
+         20                J. Cole                                     No Role Modelz   
+         21                J. Cole                                     No Role Modelz   
+         22                J. Cole                                          Lost Ones   
+         24                J. Cole                                           G.O.M.D.   
+         25                J. Cole                                           G.O.M.D.   
+         26                J. Cole                                            Deja Vu   
+         27                J. Cole                                 A Tale of 2 Citiez   
+         28                J. Cole                                         Wet Dreamz   
+         42      Chance The Rapper  Finish Line / Drown (feat. T-Pain, Kirk Frankl{\ldots}   
+         43      Chance The Rapper                                Angels (feat. Saba)   
+         53             Kanye West                                     All Falls Down   
+         54             Kanye West                                     All Falls Down   
+         55             Kanye West                                            Mercy.1   
+         56             Kanye West                                        Gold Digger   
+         57             Kanye West                                        Gold Digger   
+         58             Kanye West                                              Mercy   
+         59             Kanye West                                          The Glory   
+         60             Kanye West                             Breathe In Breathe Out   
+         61             Kanye West                                     Black Skinhead   
+         123                 Drake                                            Jumpman   
+         124                 Drake                                            Jumpman   
+         {\ldots}                   {\ldots}                                                {\ldots}   
+         1380                Migos                                            T-Shirt   
+         1404              J. Cole                                    Sparks Will Fly   
+         1419        Playboi Carti                                           Magnolia   
+         1420        Playboi Carti                                           Magnolia   
+         1450                Drake                                    Get It Together   
+         1511   Lin-Manuel Miranda                                     Meet Me Inside   
+         1512   Lin-Manuel Miranda                                            We Know   
+         1513   Lin-Manuel Miranda                                             96,000   
+         1539           The Weeknd                                        True Colors   
+         1540           The Weeknd                                           Reminder   
+         1554          Nicki Minaj                                   Beez In The Trap   
+         1555          Nicki Minaj                                       Did It On’em   
+         1603            Lil Wayne                                       Rich As Fuck   
+         1604            Lil Wayne                                           Lollipop   
+         1605            Lil Wayne                                           Lollipop   
+         1606            Lil Wayne                                            Gunwalk   
+         1607            Lil Wayne                                            A Milli   
+         1627             The Game                                  100 (feat. Drake)   
+         1628             The Game                                  100 (feat. Drake)   
+         1629             The Game                                          How We Do   
+         1637  Christopher Jackson                                  Cabinet Battle \#1   
+         1638  Christopher Jackson                                     Right Hand Man   
+         1687  The Black Eyed Peas                              Just Can’t Get Enough   
+         1688  The Black Eyed Peas                                           My Humps   
+         1693             Big Sean                                        Bounce Back   
+         1736              J. Cole                                         Apparently   
+         1737              J. Cole                                         Apparently   
+         1738              J. Cole                                         Apparently   
+         1917              J. Cole                                         Love Yourz   
+         1937          Chris Brown                      Beautiful People - Radio Edit   
+         
+                                                   artist\_genres  artist\_popularity  \textbackslash{}
+         4     ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         5     ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         6     ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         7     ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         8     ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         9     ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         10    ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         18    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         19    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         20    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         21    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         22    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         24    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         25    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         26    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         27    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         28    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         42    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         43    ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         53                                   ['pop rap', 'rap']               89.0   
+         54                                   ['pop rap', 'rap']               89.0   
+         55                                   ['pop rap', 'rap']               89.0   
+         56                                   ['pop rap', 'rap']               89.0   
+         57                                   ['pop rap', 'rap']               89.0   
+         58                                   ['pop rap', 'rap']               89.0   
+         59                                   ['pop rap', 'rap']               89.0   
+         60                                   ['pop rap', 'rap']               89.0   
+         61                                   ['pop rap', 'rap']               89.0   
+         123   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         124   ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         {\ldots}                                                 {\ldots}                {\ldots}   
+         1380                       ['pop', 'rap', 'trap music']               85.0   
+         1404  ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         1419  ['hip hop', 'pop', 'pop rap', 'rap', 'southern{\ldots}               78.0   
+         1420  ['hip hop', 'pop', 'pop rap', 'rap', 'southern{\ldots}               78.0   
+         1450  ['canadian hip hop', 'canadian pop', 'hip hop'{\ldots}              100.0   
+         1511                                     ['show tunes']               74.0   
+         1512                                     ['show tunes']               74.0   
+         1513                                     ['show tunes']               74.0   
+         1539                     ['canadian pop', 'pop', 'rap']               87.0   
+         1540                     ['canadian pop', 'pop', 'rap']               87.0   
+         1554  ['dance pop', 'hip pop', 'pop', 'pop rap', 'rap']               90.0   
+         1555  ['dance pop', 'hip pop', 'pop', 'pop rap', 'rap']               90.0   
+         1603  ['hip hop', 'pop', 'pop rap', 'rap', 'trap mus{\ldots}               85.0   
+         1604  ['hip hop', 'pop', 'pop rap', 'rap', 'trap mus{\ldots}               85.0   
+         1605  ['hip hop', 'pop', 'pop rap', 'rap', 'trap mus{\ldots}               85.0   
+         1606  ['hip hop', 'pop', 'pop rap', 'rap', 'trap mus{\ldots}               85.0   
+         1607  ['hip hop', 'pop', 'pop rap', 'rap', 'trap mus{\ldots}               85.0   
+         1627  ['dirty south rap', 'gangster rap', 'hip hop',{\ldots}               71.0   
+         1628  ['dirty south rap', 'gangster rap', 'hip hop',{\ldots}               71.0   
+         1629  ['dirty south rap', 'gangster rap', 'hip hop',{\ldots}               71.0   
+         1637                                      ['hollywood']               64.0   
+         1638                                     ['show tunes']               74.0   
+         1687                    ['dance pop', 'pop', 'pop rap']               74.0   
+         1688                    ['dance pop', 'pop', 'pop rap']               74.0   
+         1693  ['detroit hip hop', 'hip hop', 'pop', 'pop rap{\ldots}               83.0   
+         1736  ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         1737  ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         1738  ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         1917  ['conscious hip hop', 'hip hop', 'pop', 'pop r{\ldots}               84.0   
+         1937      ['dance pop', 'pop', 'pop rap', 'r\&b', 'rap']               86.0   
+         
+               cluster\_label  mode\_artist  mode\_track  
+         4                 3            7           1  
+         5                 3            7           1  
+         6                 3            7           2  
+         7                 3            7           2  
+         8                 3            7           1  
+         9                 3            7           1  
+         10                3            7           1  
+         18                7           11           4  
+         19                7           11           4  
+         20                7           11           4  
+         21                7           11           4  
+         22                7           11           1  
+         24                7           11           2  
+         25                7           11           2  
+         26                7           11           1  
+         27                7           11           1  
+         28                7           11           1  
+         42                7            2           1  
+         43                7            2           1  
+         53                7            9           2  
+         54                7            9           2  
+         55                7            9           1  
+         56                7            9           2  
+         57                7            9           2  
+         58                7            9           1  
+         59                7            9           1  
+         60                7            9           1  
+         61                7            9           1  
+         123               7           51           7  
+         124               7           51           7  
+         {\ldots}             {\ldots}          {\ldots}         {\ldots}  
+         1380              7            3           1  
+         1404              3            3           1  
+         1419              7            2           2  
+         1420              7            2           2  
+         1450              6            1           1  
+         1511              7            3           1  
+         1512              7            3           1  
+         1513              7            3           1  
+         1539              7            2           1  
+         1540              7            2           1  
+         1554              7            2           1  
+         1555              7            2           1  
+         1603              7            5           1  
+         1604              7            5           2  
+         1605              7            5           2  
+         1606              7            5           1  
+         1607              7            5           1  
+         1627              7            3           2  
+         1628              7            3           2  
+         1629              7            3           1  
+         1637              7            2           1  
+         1638              7            2           1  
+         1687              7            2           1  
+         1688              7            2           1  
+         1693              4            1           1  
+         1736              8            3           3  
+         1737              8            3           3  
+         1738              8            3           3  
+         1917              5            1           1  
+         1937              3            1           1  
+         
+         [235 rows x 10 columns]
+\end{Verbatim}
+            
+    \subsubsection{2. Results}\label{results}
+
+    Comparisons of the original and updated models were tested on 100, 10k
+and the full dataset (\(N_{unique} =27016\)).
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{100 Subset}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Validation Score - Original Model
+
+    \begin{itemize}
+    \tightlist
+    \item
+      R-Precision: 3.61\%
+    \item
+      NDCG: 3.78\%
+    \item
+      Total Average: 3.70\%
+    \end{itemize}
+  \item
+    Test Score - Final Model
+
+    \begin{itemize}
+    \tightlist
+    \item
+      R-Precision: 7.75\%
+    \item
+      NDCS: 11.41\%
+    \item
+      Total Average: 9.58\%
+    \end{itemize}
+  \end{itemize}
+\item
+  \textbf{10k Subset}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Validation Score - Original Model
+
+    \begin{itemize}
+    \tightlist
+    \item
+      R-Precision: 2.99\%
+    \item
+      NDCG: 4.29\%
+    \item
+      Total Average: 3.64\%
+    \end{itemize}
+  \item
+    Test Score - Final Model
+
+    \begin{itemize}
+    \tightlist
+    \item
+      R-Precision: 11.82\%
+    \item
+      NDCS: 13.31\%
+    \item
+      Total Average: 12.56\%
+    \end{itemize}
+  \end{itemize}
+\item
+  \textbf{Full Dataset}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Validation Score - Original Model
+
+    \begin{itemize}
+    \tightlist
+    \item
+      R-Precision: 3.82\%
+    \item
+      NDCG: 1.91\%
+    \item
+      Total Average: 1.11\%
+    \end{itemize}
+  \item
+    Test Score - Final Model
+
+    \begin{itemize}
+    \tightlist
+    \item
+      R-Precision: 11.92\%
+    \item
+      NDCS: 13.27\%
+    \item
+      Total Average: 12.59\%
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+    \subsubsection{3. Discussion}\label{discussion}
+
+    Comparisons between models suggested that our final model improved
+considerably on performance. However, it is important to note that our
+final model is essentially a hybrid of artist-based prediction and
+cluster-based prediction model. It is possible that some prediction
+process was never moved onto the cluster-based stage. Therefore, it is
+important to further investigate the effectiveness of each step of our
+final model. In addition, our current project only investigated K-Means
+clustering, a centroid-based algorithm; in the future, we can explore
+other clustering algorithms such as density-based DBSCAN to compare
+model performance. Future work should also investigate clustering with
+artist features, and even lyrics features. We posit that clustering with
+audio features would be maximize when we have a large dataset, however,
+there would be a limit posed by the limitation in audio features to
+capture uniqueness and characteristics of tracks.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
